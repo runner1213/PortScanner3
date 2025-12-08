@@ -28,7 +28,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>ru.runner1213.Main</mainClass>
+                            <mainClass>org.cats.Main</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
