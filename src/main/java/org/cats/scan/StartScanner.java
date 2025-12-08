@@ -3,6 +3,7 @@ package org.cats.scan;
 import org.cats.gui.ConsolePanel;
 
 import javax.swing.*;
+import java.io.OutputStream;
 import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.util.ArrayList;
@@ -30,9 +31,25 @@ public class StartScanner {
             final int p = port;
             executor.submit(() -> {
                 try (Socket socket = new Socket()) {
-                    socket.connect(new InetSocketAddress(ip, p), 200);
+                    socket.connect(new InetSocketAddress(ip, p), 500);
                     openPorts.add(p);
-                    SwingUtilities.invokeLater(() -> console.print("Открыт порт: " + p));
+
+                    boolean isMinecraft = false;
+                    try {
+                        OutputStream out = socket.getOutputStream();
+                        out.write(0x00);
+                        out.flush();
+                        isMinecraft = true;
+                    } catch (Exception ignored) {}
+
+                    final boolean mc = isMinecraft;
+                    SwingUtilities.invokeLater(() -> {
+                        if (mc) {
+                            console.print("Открыт Minecraft-порт: " + p);
+                        } else {
+                            console.print("Открыт порт: " + p);
+                        }
+                    });
                 } catch (Exception ignored) {
                     SwingUtilities.invokeLater(() -> console.print("Порт " + p + " закрыт"));
                 }
