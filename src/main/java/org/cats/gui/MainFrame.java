@@ -3,7 +3,7 @@ package org.cats.gui;
 import javax.swing.*;
 import java.awt.*;
 
-public class Initialize extends JFrame {
+public class MainFrame extends JFrame {
 
     private JTextField ipField;
     private JTextField portsField;
@@ -11,7 +11,7 @@ public class Initialize extends JFrame {
     private static ConsolePanel console;
     private JButton startButton;
 
-    public Initialize() {
+    public MainFrame() {
         super("PortScanner");
 
         setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -92,5 +92,9 @@ public class Initialize extends JFrame {
 
     public static ConsolePanel getConsole() {
         return console;
+    }
+
+    public void setStartEnabled(boolean enabled) {
+        startButton.setEnabled(enabled);
     }
 }

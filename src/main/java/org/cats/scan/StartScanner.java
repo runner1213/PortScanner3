@@ -268,7 +268,7 @@ public class StartScanner {
                 console.print("Найдено Minecraft серверов: " + minecraftPorts.size());
                 console.print("Minecraft порты: " + minecraftPorts);
                 if (minecraftPorts.size() < openPorts.size()) {
-                    console.print("Другие открытые порты: " + openPorts);
+                    console.print("Все открытые порты: " + openPorts);
                 }
                 console.print("============");
             });

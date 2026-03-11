@@ -7,15 +7,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class ButtonListener implements ActionListener {
-    Initialize gui;
-
-    protected ButtonListener(Initialize gui) {
+    MainFrame gui;
+    protected ButtonListener(MainFrame gui) {
         this.gui = gui;
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-
         String ip = gui.getIp();
         String portsText = gui.getPorts();
 
@@ -39,6 +37,10 @@ public class ButtonListener implements ActionListener {
             JOptionPane.showMessageDialog(gui, "Порты должны быть числами!");
             return;
         }
+        if (startPort > endPort) {
+            JOptionPane.showMessageDialog(gui, "Начальный порт не может быть больше конечного! (" + startPort + ">" + endPort + ")");
+            return;
+        }
 
         String threadsStr = JOptionPane.showInputDialog(gui, "Введите количество потоков:");
         if (threadsStr == null) return;
@@ -52,10 +54,13 @@ public class ButtonListener implements ActionListener {
             return;
         }
 
+        gui.setStartEnabled(false);
+        MainFrame.getConsole().clear();
         new Thread(() -> {
             StartScanner scanner = new StartScanner(threads);
-            scanner.scan(ip, startPort, endPort, Initialize.getConsole());
-        }).start();
+            scanner.scan(ip, startPort, endPort, MainFrame.getConsole());
 
+            SwingUtilities.invokeLater(() -> gui.setStartEnabled(true));
+        }).start();
     }
 }

@@ -1,6 +1,6 @@
 package org.cats;
 
-import org.cats.gui.Initialize;
+import org.cats.gui.MainFrame;
 
 import javax.swing.*;
 
@@ -12,7 +12,6 @@ public class Main {
             e.printStackTrace();
         }
 
-
-        javax.swing.SwingUtilities.invokeLater(Initialize::new);
+        javax.swing.SwingUtilities.invokeLater(MainFrame::new);
     }
 }

@@ -23,9 +23,13 @@ public class ConsolePanel extends JPanel {
         add(scroll, BorderLayout.CENTER);
     }
 
-    /** Вывод в консоль **/
+    /* Вывод в консоль */
     public void print(String text) {
         console.append(text + "\n");
         console.setCaretPosition(console.getDocument().getLength()); // автоскролл
+    }
+
+    public void clear() {
+        console.setText("");
     }
 }
