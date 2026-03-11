@@ -58,9 +58,13 @@ public class ButtonListener implements ActionListener {
         MainFrame.getConsole().clear();
         new Thread(() -> {
             StartScanner scanner = new StartScanner(threads);
-            scanner.scan(ip, startPort, endPort, MainFrame.getConsole());
-
-            SwingUtilities.invokeLater(() -> gui.setStartEnabled(true));
+            scanner.scan(
+                    ip,
+                    startPort,
+                    endPort,
+                    MainFrame.getConsole(),
+                    () -> gui.setStartEnabled(true)
+            );
         }).start();
     }
 }

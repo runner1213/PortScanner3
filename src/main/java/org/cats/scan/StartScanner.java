@@ -192,7 +192,12 @@ public class StartScanner {
         return false;
     }
 
-    public void scan(String ip, int startPort, int endPort, ConsolePanel console) {
+    public void scan(String ip,
+                     int startPort,
+                     int endPort,
+                     ConsolePanel console,
+                     Runnable onFinish
+    ) {
         console.print("Загружено протоколов: " + protocolVersions.size());
         console.print("Старт сканирования " + ip + " (" + startPort + "-" + endPort + ") потоков: " + threads);
 
@@ -271,6 +276,9 @@ public class StartScanner {
                     console.print("Все открытые порты: " + openPorts);
                 }
                 console.print("============");
+                if (onFinish != null) {
+                    SwingUtilities.invokeLater(onFinish);
+                }
             });
         }).start();
     }
